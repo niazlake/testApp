@@ -29,6 +29,10 @@ export class LibraryService {
     {
       name: 'nothing',
       value: 'Нету ответов'
+    },
+    {
+      name: 'load',
+      value: 'Загружается'
     }
   ];
 

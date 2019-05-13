@@ -29,10 +29,12 @@ export class SearchPageComponent {
   slideCounter = false;
   relatedState = '';
   errorHandle = true;
+  loadHandler = true;
   errotText = LibraryService.TEXT[0].value;
   answerText = LibraryService.TEXT[1].value;
   goText = LibraryService.TEXT[2].value;
   backText = LibraryService.TEXT[3].value;
+  loadText = LibraryService.TEXT[5].value;
 
   constructor(private api: ApiService, private router: Router) {
     if (localStorage.getItem('InfoGet')) {
@@ -93,12 +95,15 @@ export class SearchPageComponent {
               }
             );
           }
+          this.loadHandler = false;
         } else {
+          this.loadHandler = false;
           this.slideCounter = false;
           this.textInline = 'Ничего нету :(';
         }
       },
       error => {
+        this.loadHandler = false;
         this.errorHandle = false;
       }
     );

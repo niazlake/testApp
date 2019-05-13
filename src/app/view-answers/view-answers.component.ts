@@ -19,9 +19,11 @@ export class ViewAnswersComponent {
   main_data: any;
   errorHandler = false;
   nothingHandler = false;
+  loadHandler = true;
   errorText = LibraryService.TEXT[0].value;
   answerText = LibraryService.TEXT[1].value;
   nothingText = LibraryService.TEXT[4].value;
+  loadText = LibraryService.TEXT[5].value;
 
   /*
   * Тут в самом конструктре делаем запросы и получем нужные данные
@@ -39,11 +41,14 @@ export class ViewAnswersComponent {
               body: inData[i].body
             });
           }
+          this.loadHandler = false;
         } else {
+          this.loadHandler = false;
           this.nothingHandler = true;
         }
       },
       error1 => {
+        this.loadHandler = false;
         this.errorHandler = true;
       }
     );
