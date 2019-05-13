@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Location} from '@angular/common';
+import {LibraryService} from '../library.service';
 
 export interface Answers {
   id: number;
@@ -17,6 +18,8 @@ export class ViewAnswersComponent {
   display_data: Answers[] = [];
   main_data: any;
   errorHandler = false;
+  errorText = LibraryService.TEXT[0].value;
+  answerText = LibraryService.TEXT[1].value;
 
   /*
   * Тут в самом конструктре делаем запросы и получем нужные данные

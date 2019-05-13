@@ -23,11 +23,6 @@ export class ApiService {
     return this.http.get('https://api.stackexchange.com/2.2/search/advanced?page=' + page +
       '&pagesize=10&&order=desc&sort=activity&title=' + title + '&site=stackoverflow'
     ).pipe(
-      tap((ev: HttpEvent<any>) => {
-        if (ev instanceof HttpResponse) {
-          console.log('###processing response', ev, this.location);
-        }
-      }),
       retryWhen(errors => errors
         .pipe(
           concatMap((error, count) => {
@@ -48,11 +43,6 @@ export class ApiService {
   getAllbyId(id) {
     return this.http.get('https://api.stackexchange.com/2.2/questions/' + id +
       '?order=desc&sort=activity&site=stackoverflow&filter=!-y(KwOdKR5Ga7mmruVArx2SJykc-M)3jKiDQBk1fq').pipe(
-      tap((ev: HttpEvent<any>) => {
-        if (ev instanceof HttpResponse) {
-          console.log('###processing response', ev, this.location);
-        }
-      }),
       retryWhen(errors => errors
         .pipe(
           concatMap((error, count) => {

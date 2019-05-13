@@ -11,7 +11,7 @@
       </div>
     </div>
   </article>
-  <span>Ответы:</span>
+  <span>{{answerText}}:</span>
   <article class="comment" *ngFor="let item of display_data">
     <a class="comment-img" href="#non">
       <img src="http://lorempixum.com/50/50/people/1" alt="" width="50" height="50"/>
@@ -27,5 +27,5 @@
 
 <div *ngIf="errorHandler" class="modal_window">
   <img src="https://img.icons8.com/metro/52/000000/error.png">
-  <p>Ой ошибка! Пожалуйста перезагрузите</p>
+  <p>{{errorText}}</p>
 </div>

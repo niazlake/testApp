@@ -16,7 +16,7 @@
         <div class="author" [innerHTML]="item.author.name">
         </div>
         <div class="counter" (click)="goPage(item.id)">
-          Ответов:   {{item.answer_count}}
+          {{answerText}}:   {{item.answer_count}}
         </div>
       </div>
       <div [innerHTML]="item.name" class="title-block" (click)="goPage(item.id)">
@@ -32,13 +32,13 @@
     {{textInline}}
   </ng-template>
   <div class="inline-button" *ngIf="displayData.length > 0">
-    <button class="searchButton width-pagg" (click)="goBack()" *ngIf="currentPage >1">Сюда</button>
+    <button class="searchButton width-pagg" (click)="goBack()" *ngIf="currentPage >1">{{goText}}</button>
     <div>{{currentPage}}</div>
-    <button class="searchButton width-pagg" (click)="goFoward()">Туда</button>
+    <button class="searchButton width-pagg" (click)="goFoward()">{{backText}}</button>
   </div>
 </div>
 
 <div *ngIf="!errorHandle" class="modal_window">
   <img src="https://img.icons8.com/metro/52/000000/error.png">
-  <p>Ой ошибка! Пожалуйста перезагрузите</p>
+  <p>{{errotText}}</p>
 </div>

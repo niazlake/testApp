@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
+import {LibraryService} from '../library.service';
 
 export interface DataGet {
   id: number;
@@ -28,6 +29,10 @@ export class SearchPageComponent {
   slideCounter = false;
   relatedState = '';
   errorHandle = true;
+  errotText = LibraryService.TEXT[0].value;
+  answerText = LibraryService.TEXT[1].value;
+  goText = LibraryService.TEXT[2].value;
+  backText = LibraryService.TEXT[3].value;
 
   constructor(private api: ApiService, private router: Router) {
     if (localStorage.getItem('InfoGet')) {
@@ -51,16 +56,14 @@ export class SearchPageComponent {
   }
 
   search() {
-    if (this.inputRest === this.relatedState) {
-      if (this.inputRest.length > 0) {
-        this.deepSearch();
-      } else {
-        this.textInline = 'Поле пустое, впиши что нибудь';
-      }
-    } else {
+    if (this.inputRest !== this.relatedState) {
       this.currentPage = 1;
       this.relatedState = this.inputRest;
       this.deepSearch();
+    } else if (this.inputRest.length > 0) {
+      this.deepSearch();
+    } else {
+      this.textInline = 'Поле пустое, впиши что нибудь';
     }
   }
 
@@ -94,7 +97,7 @@ export class SearchPageComponent {
           this.textInline = 'Ничего нету :(';
         }
       },
-      error1 => {
+      error => {
         this.errorHandle = false;
       }
     );
