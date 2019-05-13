@@ -18,8 +18,10 @@ export class ViewAnswersComponent {
   display_data: Answers[] = [];
   main_data: any;
   errorHandler = false;
+  nothingHandler = false;
   errorText = LibraryService.TEXT[0].value;
   answerText = LibraryService.TEXT[1].value;
+  nothingText = LibraryService.TEXT[4].value;
 
   /*
   * Тут в самом конструктре делаем запросы и получем нужные данные
@@ -28,13 +30,17 @@ export class ViewAnswersComponent {
     this.key_id = Number(localStorage.getItem('key_id'));
     this.api.getAllbyId(this.key_id).subscribe(
       (data: any) => {
-        this.main_data = data.items[0];
-        const inData = data.items[0].answers;
-        for (let i = 0; i < inData.length; i++) {
-          this.display_data.push({
-            id: inData[i].id,
-            body: inData[i].body
-          });
+        if (data.items[0].answers) {
+          this.main_data = data.items[0];
+          const inData = data.items[0].answers;
+          for (let i = 0; i < inData.length; i++) {
+            this.display_data.push({
+              id: inData[i].id,
+              body: inData[i].body
+            });
+          }
+        } else {
+          this.nothingHandler = true;
         }
       },
       error1 => {

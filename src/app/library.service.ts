@@ -25,8 +25,14 @@ export class LibraryService {
     {
       name: 'back',
       value: 'Сюда'
+    },
+    {
+      name: 'nothing',
+      value: 'Нету ответов'
     }
   ];
+
+  public static URL = 'https://api.stackexchange.com/2.2/';
 
   constructor() {
   }

@@ -38,7 +38,8 @@ export class SearchPageComponent {
     if (localStorage.getItem('InfoGet')) {
       const key = JSON.parse(localStorage.getItem('InfoGet'));
       this.inputRest = key.text;
-      this.currentPage = key.page;
+      this.relatedState = key.text;
+      this.currentPage = Number(key.page);
       this.search();
     }
   }
