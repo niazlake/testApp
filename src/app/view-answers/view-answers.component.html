@@ -1,0 +1,31 @@
+<section class="comments" *ngIf="main_data && display_data">
+  <article class="comment">
+    <a class="comment-img" href="#non">
+      <img src="http://lorempixum.com/50/50/people/1" alt="" width="50" height="50"/>
+    </a>
+
+    <div class="comment-body article-main">
+      <h1 [innerHTML]="main_data.title"></h1>
+      <div class="text">
+        <p [innerHTML]="main_data.body"></p>
+      </div>
+    </div>
+  </article>
+  <span>Ответы:</span>
+  <article class="comment" *ngFor="let item of display_data">
+    <a class="comment-img" href="#non">
+      <img src="http://lorempixum.com/50/50/people/1" alt="" width="50" height="50"/>
+    </a>
+
+    <div class="comment-body">
+      <div class="text">
+        <p [innerHTML]="item.body"></p>
+      </div>
+    </div>
+  </article>
+</section>​
+
+<div *ngIf="errorHandler" class="modal_window">
+  <img src="https://img.icons8.com/metro/52/000000/error.png">
+  <p>Ой ошибка! Пожалуйста перезагрузите</p>
+</div>
