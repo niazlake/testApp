@@ -1,18 +1,18 @@
-<section class="comments" *ngIf="main_data && display_data">
+<section class="comments" *ngIf="!loadHandler && display_data">
   <article class="comment">
     <a class="comment-img" href="#non">
       <img src="http://lorempixum.com/50/50/people/1" alt="" width="50" height="50"/>
     </a>
 
     <div class="comment-body article-main">
-      <h1 [innerHTML]="main_data.title"></h1>
+      <h1 [innerHTML]="display_data.items[0].title"></h1>
       <div class="text">
-        <p [innerHTML]="main_data.body"></p>
+        <p [innerHTML]="display_data.items[0].body"></p>
       </div>
     </div>
   </article>
-  <span>{{answerText}}:</span>
-  <article class="comment" *ngFor="let item of display_data">
+  <span i18n>Ответы:</span>
+  <article class="comment" *ngFor="let item of display_data.items[0].answers">
     <a class="comment-img" href="#non">
       <img src="http://lorempixum.com/50/50/people/1" alt="" width="50" height="50"/>
     </a>
@@ -27,16 +27,16 @@
 
 <div *ngIf="errorHandler" class="modal_window">
   <img src="https://img.icons8.com/metro/52/000000/error.png">
-  <p>{{errorText}}</p>
+  <p i18n>Ошибка</p>
 </div>
 
 
 <div *ngIf="nothingHandler" class="modal_window">
   <img src="https://img.icons8.com/metro/52/000000/error.png">
-  <p>{{nothingText}}</p>
+  <p i18n>Ничего не найдено</p>
 </div>
 
 <div *ngIf="loadHandler" class="modal_window">
   <img src="https://img.icons8.com/dotty/80/000000/recurring-appointment.png">
-  <p>{{loadText}}</p>
+  <p i18n>Грузится</p>
 </div>

@@ -1,19 +1,34 @@
 import {Component} from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
-import {LibraryService} from '../library.service';
 
-export interface DataGet {
-  id: number;
-  name: number;
-  author: Author;
-  answer_count: number;
-  tags: [string];
+export interface Question {
+  items: InItem[];
+  has_more: boolean;
+  quota_max: number;
+  quota_remaining: number;
 }
 
-export interface Author {
-  name: string;
-  id: string;
+export interface InItem {
+  tags: [string];
+  owner: {
+    reputation: number,
+    user_id: number,
+    user_type: string,
+    profile_image: string,
+    display_name: string,
+    link: string
+  };
+  is_answered: boolean;
+  view_count: number;
+  answer_count: number;
+  score: number;
+  last_activity_date: number;
+  creation_date: number;
+  last_edit_date: number;
+  question_id: number;
+  link: string;
+  title: string;
 }
 
 @Component({
@@ -23,18 +38,13 @@ export interface Author {
 })
 export class SearchPageComponent {
   inputRest = '';
-  displayData: DataGet[] = [];
+  displayData: Question;
   currentPage = 1;
   textInline = 'Еще не искали';
   slideCounter = false;
   relatedState = '';
   errorHandle = true;
   loadHandler = true;
-  errotText = LibraryService.TEXT[0].value;
-  answerText = LibraryService.TEXT[1].value;
-  goText = LibraryService.TEXT[2].value;
-  backText = LibraryService.TEXT[3].value;
-  loadText = LibraryService.TEXT[5].value;
 
   constructor(private api: ApiService, private router: Router) {
     if (localStorage.getItem('InfoGet')) {
@@ -74,27 +84,12 @@ export class SearchPageComponent {
    * запрос для поиска и фильтра
    * */
   deepSearch() {
-    this.displayData = [];
     this.textInline = 'Ищем!';
     this.api.searchTitle(this.inputRest, this.currentPage).subscribe(
-      (data: any) => {
+      (data: Question) => {
         if (data.items.length > 0) {
+          this.displayData = data;
           this.slideCounter = true;
-          for (let i = 0; i < data.items.length; i++) {
-            const inData = data.items[i];
-            this.displayData.push(
-              {
-                id: Number(inData.question_id),
-                name: inData.title,
-                answer_count: inData.answer_count,
-                author: {
-                  name: inData.owner.display_name,
-                  id: inData.owner.user_id,
-                },
-                tags: inData.tags
-              }
-            );
-          }
           this.loadHandler = false;
         } else {
           this.loadHandler = false;

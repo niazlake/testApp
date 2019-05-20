@@ -1,6 +1,6 @@
 <div class="wrap">
   <div class="search">
-    <input [(ngModel)]="inputRest" class="searchTerm" placeholder="Что ищем?" type="text" required>
+    <input [(ngModel)]="inputRest" class="searchTerm" placeholder="Что ищем?" type="text">
     <button type="submit" class="searchButton" (click)="search()">
       <i class="fa fa-search">
         <svg class="svg-icon" viewBox="0 0 20 20">
@@ -10,16 +10,16 @@
       </i>
     </button>
   </div>
-  <div *ngIf="displayData.length > 0; else skip" class="info-block">
-    <div *ngFor="let item of displayData" class="show-info">
+  <div *ngIf="displayData; else skip" class="info-block">
+    <div *ngFor="let item of displayData.items" class="show-info">
       <div class="info-name">
-        <div class="author" [innerHTML]="item.author.name">
+        <div class="author" [innerHTML]="item.owner.display_name">
         </div>
-        <div class="counter" (click)="goPage(item.id)">
-          {{answerText}}:   {{item.answer_count}}
+        <div class="counter" (click)="goPage(item.question_id)">
+          Ответы:   {{item.answer_count}}
         </div>
       </div>
-      <div [innerHTML]="item.name" class="title-block" (click)="goPage(item.id)">
+      <div [innerHTML]="item.title" class="title-block" (click)="goPage(item.question_id)">
       </div>
       <div class="tags-inline">
         <div *ngFor="let inline of item.tags" class="tag-block">
@@ -31,19 +31,19 @@
   <ng-template #skip>
     {{textInline}}
   </ng-template>
-  <div class="inline-button" *ngIf="displayData.length > 0">
-    <button class="searchButton width-pagg" (click)="goBack()" *ngIf="currentPage >1">{{goText}}</button>
+  <div class="inline-button" *ngIf="displayData">
+    <button class="searchButton width-pagg" (click)="goBack()" *ngIf="currentPage >1">Туда</button>
     <div>{{currentPage}}</div>
-    <button class="searchButton width-pagg" (click)="goFoward()">{{backText}}</button>
+    <button class="searchButton width-pagg" (click)="goFoward()">Сюда</button>
   </div>
 </div>
 
 <div *ngIf="!errorHandle" class="modal_window">
   <img src="https://img.icons8.com/metro/52/000000/error.png">
-  <p>{{errotText}}</p>
+  <p>Ошибка</p>
 </div>
 
-<div *ngIf="loadHandler"  class="modal_window">
+<div *ngIf="loadHandler" class="modal_window">
   <img src="https://img.icons8.com/dotty/80/000000/recurring-appointment.png">
-  <p>{{loadText}}</p>
+  <p>Грузится</p>
 </div>
