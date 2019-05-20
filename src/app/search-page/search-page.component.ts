@@ -40,7 +40,6 @@ export class SearchPageComponent {
   inputRest = '';
   displayData: Question;
   currentPage = 1;
-  textInline = 'Еще не искали';
   slideCounter = false;
   relatedState = '';
   errorHandle = true;
@@ -75,8 +74,6 @@ export class SearchPageComponent {
       this.deepSearch();
     } else if (this.inputRest.length > 0) {
       this.deepSearch();
-    } else {
-      this.textInline = 'Поле пустое, впиши что нибудь';
     }
   }
 
@@ -84,7 +81,6 @@ export class SearchPageComponent {
    * запрос для поиска и фильтра
    * */
   deepSearch() {
-    this.textInline = 'Ищем!';
     this.api.searchTitle(this.inputRest, this.currentPage).subscribe(
       (data: Question) => {
         if (data.items.length > 0) {
@@ -94,7 +90,6 @@ export class SearchPageComponent {
         } else {
           this.loadHandler = false;
           this.slideCounter = false;
-          this.textInline = 'Ничего нету :(';
         }
       },
       error => {
